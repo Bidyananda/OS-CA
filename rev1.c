@@ -6,6 +6,11 @@
 pthread_mutex_t mutex, wrt;
 int sharedvar, rcount = 0;
 
+void design()
+{
+	printf("--------------------------------------------------\n");
+}
+
 void *writer(void *arg)
 {
         pthread_mutex_lock(&wrt);
@@ -13,8 +18,8 @@ void *writer(void *arg)
 	    int waittime = rand() % 10;
         int d = ((int)arg);
         
-	printf("--------------------------------------------------\n");
-        printf("W%d Wait for Random time= %d\n", d, waittime);
+	design();
+	printf("W%d Wait for Random time= %d\n", d, waittime);
         sleep(waittime);
         printf("Enter the number of time W%d want to write:\n", d);
         int t;
@@ -28,8 +33,8 @@ void *writer(void *arg)
                 sharedvar = sharedvar + u;
         }
         printf("UPDATED value of Shared variable = %d \n", sharedvar);
-        printf("--------------------------------------------------\n");
-        pthread_mutex_unlock(&wrt);
+	design();
+	pthread_mutex_unlock(&wrt);
 }
 
 void *reader(void *arg){
@@ -65,28 +70,27 @@ void *reader(void *arg){
 void main(){
         printf("Enter the Initial value: \n");
         scanf("%d", &sharedvar);
-        printf("---------------------------------------------\n");
-        int readerno, writerno, i;
+	design();
+	int readerno, writerno, i;
         printf("no. of Reader:\n");
         scanf("%d", &readerno);
         for(i=0; i<readerno; i++){
                 printf("R%d\n", i);
         }
-        printf("---------------------------------------------\n");
-        printf("no. of Writer:\n");
+	design();
+	printf("no. of Writer:\n");
         scanf("%d", &writerno);
         for(i=0; i<writerno; i++){
                 printf("W%d\n", i);
         }
-        printf("---------------------------------------------\n");
 
+	design();
         pthread_t r[readerno], w[writerno];
         pthread_mutex_init(&wrt, NULL);
         pthread_mutex_init(&mutex, NULL);
 
    
-        printf("---------------------------------------------\n");
-
+	design();
         if(writerno==readerno){
                 for(i=0; i<writerno; i++){
                         pthread_create(&w[i], NULL, &writer, (int *)i);
