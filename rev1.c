@@ -6,7 +6,7 @@
 pthread_mutex_t mutex, wrt;
 int sharedvar, rcount = 0;              //Shared Variable
 
-void design()                   //Design Function
+void design()                 		//Design Function
 {
     printf("--------------------------------------------------\n");
 }
@@ -15,12 +15,12 @@ void *writer(void *arg)
 {
         pthread_mutex_lock(&wrt);
         
-	int n = rand() % 15;       //Random in 15ns
-        int d = ((int)arg);
+	int n = rand() % 15;       	//Random in 15ns
+        int d = ((int)arg);		
         
 	    design();
         printf("W%d Wait for Random time between 0ns and 15ns = %d\n", d, n);
-        sleep(n);                              
+        sleep(n);                      //Delay generated time     
         printf("Enter the number of time W%d want to write:\n", d);
         int t;
         scanf("%d", &t);
