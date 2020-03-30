@@ -4,7 +4,7 @@
 #include<unistd.h>
 
 pthread_mutex_t mutex, wrt;
-int s, rcount = 0;
+int sharedvar, rcount = 0;
 
 void *writer(void *arg)
 {
@@ -25,9 +25,9 @@ void *writer(void *arg)
                 printf("Enter the %dth value to write:\n", (j+1));
                 int u;
                 scanf("%d", &u);
-                s = s + u;
+                sharedvar = sharedvar + u;
         }
-        printf("UPDATED value of Shared variable = %d \n", s);
+        printf("UPDATED value of Shared variable = %d \n", sharedvar);
         printf("--------------------------------------------------\n");
         pthread_mutex_unlock(&wrt);
 }
@@ -51,7 +51,7 @@ void *reader(void *arg){
         printf("Now R%d is reading....\n", d);
         int j;
         for(j=0; j<t; j++){
-                printf("R%d read the shared value = %d\n", d, s);
+                printf("R%d read the shared value = %d\n", d, sharedvar);
         }
         printf("Number of Readers present = %d\n", rcount);
         pthread_mutex_lock(&mutex);
@@ -64,7 +64,7 @@ void *reader(void *arg){
 
 void main(){
         printf("Enter the Initial value: \n");
-        scanf("%d", &s);
+        scanf("%d", &sharedvar);
         printf("---------------------------------------------\n");
         int readerno, writerno, i;
         printf("no. of Reader:\n");
@@ -128,5 +128,5 @@ void main(){
                 }
         }
         printf("-------------After joining the thread---------\n");
-        printf("Final value of share variable = %d\n", s);
+        printf("Final value of share variable = %d\n", sharedvar);
 }
