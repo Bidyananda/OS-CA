@@ -89,6 +89,19 @@ void main(){
         pthread_mutex_init(&wrt, NULL);
         pthread_mutex_init(&mutex, NULL);
 
+	//Cases
+    
+        if(readerno<0 || writterno<0){
+                printf("You have Entered NEGATIVE number of READER | WRITER\n");
+                printf("Clossing\n");
+                return;
+        }else if(readerno == 0){
+                printf("You have not taken any READER\n");
+        }else if(writterno == 0){
+                printf("You have not taken any WRITER\n");
+        }else{
+                printf("Creating Thread\n");
+        }
    
 	design();
         if(writerno==readerno){
